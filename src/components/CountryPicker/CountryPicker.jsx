@@ -5,7 +5,7 @@ import styles from "./CountryPicker.module.css";
 
 import { fetchCountries } from "../../api";
 
-const CountryPicker = () => {
+const CountryPicker = ({ handleCountryChange }) => {
   const [fetchedCountries, setFetchedCountries] = useState([]);
 
   useEffect(() => {
@@ -16,11 +16,9 @@ const CountryPicker = () => {
     fetchAPI();
   }, [setFetchedCountries]); //Second parameter makes it so useEffect updates only when you select a new country. Not run endlessly
 
-  console.log(fetchedCountries);
-
   return (
     <FormControl className={styles.formControl}>
-      <NativeSelect>
+      <NativeSelect defaultValue='' onChange={(e) => (handleCountryChange(e.target.value))}>
         <option value="global">Global</option>
         {fetchedCountries.map((country, i) => (
           <option key={i} value={country}>
